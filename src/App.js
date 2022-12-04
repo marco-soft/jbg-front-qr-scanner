@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import QrReader from "react-qr-reader";
+import Login from "./components/Login";
+import "./index.css";
 
-function App() {
+export default function App() {
+  const [result, setResult] = useState("No result");
+  let handleScan = (data) => {
+    if (data) {
+      setResult(data);
+    }
+  };
+
+  let handleError = (err) => {
+    // alert(err);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Login />
+      <QrReader
+        delay={300}
+        onError={handleError}
+        onScan={handleScan}
+        style={{ width: "100%" }}
+        facingMode="environment"
+      />
+      <h1 className="text-3xl font-bold underline">{result || "hola"}</h1>
     </div>
   );
 }
-
-export default App;
