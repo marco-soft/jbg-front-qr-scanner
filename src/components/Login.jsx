@@ -1,11 +1,14 @@
 import React from "react";
-import kim from "../images/KIM.png";
+import jbg_logo from "../images/JBG_LOGO.png";
 
 export default function Login() {
   return (
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-      <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
-        <img src={kim} alt="xxx" />
+      <div
+        className="w-full m-auto bg-white rounded-md shadow-md lg:max-w-xl bg-gradient-to-b
+                 from-blue-200"
+      >
+        <img src={jbg_logo} alt="xxx" />
         <form className="mt-6">
           <div className="mb-2">
             <label
