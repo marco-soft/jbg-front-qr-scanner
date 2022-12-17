@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import QrReader from "react-qr-reader";
-import Login from "./components/Login";
 import "./index.css";
 
 export default function App() {
