@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import QrReader from "react-qr-reader";
 import "./index.css";
+import { data } from "autoprefixer";
 
 export default function App() {
   const [displayScan, setDisplayScan] = useState(false);
   const [result, setResult] = useState(undefined);
   const [showModal, setShowModal] = useState(false);
+  const [info, setInfo] = useState(undefined);
 
   let handleScan = async (data) => {
     console.log(data);
@@ -30,7 +32,7 @@ export default function App() {
         };
 
         await axios(config);
-        data = null;
+        setInfo(data);
         setDisplayScan(false);
         setShowModal(true);
       } catch (err) {
@@ -47,7 +49,14 @@ export default function App() {
   let handleError = (err) => {
     setDisplayScan(false);
     alert(err);
+    reload();
   };
+
+  const reload = () => {
+    setShowModal(false);
+    window.location.reload();
+  };
+
   return (
     <div class="grid h-screen place-items-center">
       {showModal ? (
@@ -71,28 +80,17 @@ export default function App() {
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    I always felt like I could do anything. That’s the main
-                    thing people are controlled by! Thoughts- their perception
-                    of themselves! They're slowed down by their perception of
-                    themselves. If you're taught you can’t do anything, you
-                    won’t do anything. I was taught I could do everything.
+                    {info.toString}
                   </p>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                   <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button>
-                  <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={reload}
                   >
-                    Save Changes
+                    OK
                   </button>
                 </div>
               </div>
